@@ -10,8 +10,8 @@ from langchain.chains.question_answering import load_qa_chain
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
-load_dotenv()
-GOOGLE_API_KEY = "AIzaSyDnaKfeEj0JSD55raPZE5PN9__-1zHk4m0"
+load_dotenv(r"C:\Users\JANI BASHA\Downloads\google.env.txt")
+GOOGLE_API_KEY = "AIzaSyALTecTsQ_s8o4IXavgmxQ-Z1WovbcbhjM"
 
 # Retrieve the Google API key
 api_key = os.getenv("GOOGLE_API_KEY")
@@ -38,15 +38,16 @@ def get_pdf_text(pdf_docs):
 def get_text_chunks(text):
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)  # Smaller chunks for better context
     chunks = text_splitter.split_text(text)
-    print(f"Text split into {len(chunks)} chunks.")
+    st.write(f"Text split into {len(chunks)} chunks.")
     return chunks
 
 # Function to create and save FAISS vector store
 def get_vector_store(text_chunks):
     embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
+    st.write('success')
     vector_store = FAISS.from_texts(text_chunks, embedding=embeddings)
     vector_store.save_local("faiss_index")
-    print("Vector store saved.")
+    st.write("Vector store saved.")
 
 # Function to get conversational chain using Google Generative AI
 def get_conversational_chain():
@@ -128,7 +129,7 @@ def main():
                     try:
                         raw_text = get_pdf_text(pdf_docs)
                         if raw_text:
-                            print("PDF text extraction successful.")
+                            st.write("PDF text extraction successful.")
                             text_chunks = get_text_chunks(raw_text)
                             get_vector_store(text_chunks)
                             st.success("PDFs processed and vector store created.")
