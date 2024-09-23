@@ -11,7 +11,7 @@ from langchain.chains.question_answering import load_qa_chain
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
-load_dotenv(r"C:\Users\JANI BASHA\Downloads\google.env.txt")
+load_dotenv()
 GOOGLE_API_KEY = "AIzaSyALTecTsQ_s8o4IXavgmxQ-Z1WovbcbhjM"
 
 # Retrieve the Google API key
